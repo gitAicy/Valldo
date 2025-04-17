@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Рецепт шоколадного лавового пирога с жидким центром.">
+    <meta name="keywords" content="шоколадный лавовый пирог, рецепт, кулинария, топ 5 рецептов">
     <title>Шоколадный лавовый пирог - Топ 5 рецептов</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
@@ -49,28 +51,99 @@
         .scroll-top:hover {
             background-color: #ea580c;
         }
+        .dark-theme {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        .dark-theme h1, .dark-theme h2, .dark-theme h3 {
+            color: #f5f5f5;
+        }
+        .dark-theme .bg-white {
+            background-color: #3a3a3a;
+        }
+        .dark-theme .text-stone-700 {
+            color: #d1d5db;
+        }
+        @media (max-width: 640px) {
+            .hero-image {
+                height: 250px;
+            }
+            .hero-image h2 {
+                font-size: 2rem;
+            }
+        }
     </style>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    <!-- Schema.org структурированные данные -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Recipe",
+        "name": "Шоколадный лавовый пирог",
+        "image": "https://images.unsplash.com/photo-1586984184516-0a0e0b0a1a0a",
+        "description": "Теплый пирог с жидким шоколадным центром.",
+        "recipeIngredient": [
+            "Темный шоколад - 100 г",
+            "Сливочное масло - 100 г",
+            "Яйца - 2 шт.",
+            "Сахар - 50 г",
+            "Мука - 2 ст.л."
+        ],
+        "recipeInstructions": [
+            {"@type": "HowToStep", "text": "Растопите шоколад с маслом."},
+            {"@type": "HowToStep", "text": "Взбейте яйца с сахаром."},
+            {"@type": "HowToStep", "text": "Смешайте шоколадную смесь с яичной и добавьте муку."},
+            {"@type": "HowToStep", "text": "Выпекайте в формочках при 200°C 10 минут."}
+        ],
+        "prepTime": "PT20M",
+        "totalTime": "PT20M",
+        "recipeYield": "2 порции",
+        "nutrition": {
+            "@type": "NutritionInformation",
+            "calories": "400 kcal",
+            "proteinContent": "8 g",
+            "fatContent": "30 g",
+            "carbohydrateContent": "35 g"
+        }
+    }
+    </script>
 </head>
 <body>
     <header class="bg-orange-500 text-white p-6 sticky top-0 z-50 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-4xl font-bold">Топ 5 рецептов</h1>
-            <nav>
-                <ul class="flex space-x-6">
+            <button id="menu-toggle" class="sm:hidden text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+            <nav id="nav-menu" class="hidden sm:flex sm:space-x-6 items-center">
+                <ul class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                     <li><a href="index.html#home" class="hover:underline text-lg">Главная</a></li>
                     <li><a href="index.html#recipes" class="hover:underline text-lg">Рецепты</a></li>
                     <li><a href="index.html#about" class="hover:underline text-lg">О нас</a></li>
+                    <li><a href="index.html#contact" class="hover:underline text-lg">Контакты</a></li>
                 </ul>
+                <button id="theme-toggle" class="ml-4 bg-orange-600 text-white px-4 py-2 rounded-full">Темная тема</button>
             </nav>
         </div>
     </header>
 
     <main class="container mx-auto p-6">
         <section class="py-8">
-            <div class="hero-image" style="background-image: url('https://images.unsplash.com/photo-1618886614638-80e3c103d31a');">
+            <div class="hero-image" style="background-image: url('https://cs10.pikabu.ru/post_img/big/2019/02/06/8/1549457465167186599.jpg');">
                 <h2 class="text-5xl font-bold z-10">Шоколадный лавовый пирог</h2>
             </div>
             <div class="bg-white rounded-xl shadow-md p-8 max-w-3xl mx-auto mt-8">
+                <div class="flex justify-between mb-6">
+                    <p class="text-stone-700 text-lg"><strong>Время:</strong> 20 минут</p>
+                    <p class="text-stone-700 text-lg"><strong>Сложность:</strong> Средне</p>
+                </div>
                 <h3 class="text-3xl font-semibold mt-4">Ингредиенты:</h3>
                 <ul class="list-disc pl-6 mt-4 text-stone-700 text-lg">
                     <li>Темный шоколад - 100 г</li>
@@ -83,10 +156,29 @@
                 <ol class="list-decimal pl-6 mt-4 text-stone-700 text-lg">
                     <li>Растопите шоколад с маслом.</li>
                     <li>Взбейте яйца с сахаром.</li>
-                    <li>Смешайте все с мукой.</li>
+                    <li>Смешайте шоколадную смесь с яичной и добавьте муку.</li>
                     <li>Выпекайте в формочках при 200°C 10 минут.</li>
                 </ol>
-                <a href="index.html#recipes" class="mt-6 inline-block bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600 transition transform hover:scale-105">Вернуться к рецептам</a>
+                <h3 class="text-3xl font-semibold mt-8">Питательная ценность (на порцию):</h3>
+                <ul class="list-disc pl-6 mt-4 text-stone-700 text-lg">
+                    <li>Калории: 400 ккал</li>
+                    <li>Белки: 8 г</li>
+                    <li>Жиры: 30 г</li>
+                    <li>Углеводы: 35 г</li>
+                </ul>
+                <div class="mt-6 flex space-x-4">
+                    <a href="index.html#recipes" class="inline-block bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600 transition transform hover:scale-105">Вернуться к рецептам</a>
+                    <button onclick="addToFavorites('lava-cake')" class="inline-block bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600 transition transform hover:scale-105">Добавить в избранное</button>
+                </div>
+                <h3 class="text-3xl font-semibold mt-8">Поделиться рецептом</h3>
+                <div class="flex space-x-4 mt-4">
+                    <a href="https://pinterest.com/pin/create/button/?url=https://ВАШ-USERNAME.github.io/lava-cake.html&media=https://images.unsplash.com/photo-1586984184516-0a0e0b0a1a0a&description=Вкусный шоколадный лавовый пирог!" class="text-orange-500 hover:text-orange-600">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.332 3.438 9.862 8.208 11.473-.113-.998-.208-2.527.043-3.616.227-.982 1.465-6.242 1.465-6.242s-.374-.75-.374-1.857c0-1.738 1.008-3.035 2.262-3.035 1.066 0 1.582.806 1.582 1.773 0 1.08-.687 2.695-.104 4.19.486 1.258 1.494 1.445 1.77 1.445 1.316 0 2.33-1.387 2.33-3.387 0-1.77-1.27-3.008-3.085-3.008-2.103 0-3.338 1.576-3.338 3.203 0 1.276.496 2.645.496 2.645s-1.645 6.963-1.938 8.275c-.316 1.418.14 3.157.104 3.332l.042.015c.208-.082.428-.22.61-.354.142-.105 1.82-1.204 2.34-2.33.142-.31.81-1.896.81-1.896.428.81 1.676 1.51 3.008 1.51 3.966 0 6.834-3.615 6.834-8.417C24 5.373 18.627 0 12 0z"/></svg>
+                    </a>
+                    <a href="https://api.whatsapp.com/send?text=Попробуй этот рецепт: https://ВАШ-USERNAME.github.io/lava-cake.html" class="text-orange-500 hover:text-orange-600">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 2.134.56 4.24 1.62 6.07L0 24l6.06-1.59A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22.068A10.065 10.065 0 016.92 20.52l-.354-.142-3.59.942.948-3.54-.142-.36A10.065 10.065 0 012 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.728-7.208c-.314-.156-1.854-.914-2.142-1.02-.288-.106-.498-.156-.708.156-.21.312-.814 1.02-.998 1.228-.184.208-.368.234-.682.078-.314-.156-1.324-.486-2.52-1.552-.93-.828-1.558-1.854-1.742-2.166-.184-.312-.02-.478.138-.634.142-.14.314-.36.47-.54.156-.18.208-.312.314-.52.106-.208.052-.416-.026-.572-.078-.156-.708-1.708-.968-2.338-.252-.61-.504-.52-.708-.52H7.5c-.262 0-.524.104-.708.416-.184.312-.708 1.708-.708 4.166 0 2.458 1.786 4.834 2.038 5.146.252.312 3.524 5.376 8.542 7.542 1.192.514 2.126.778 2.852.778.784 0 2.458-.998 2.808-1.968.35-.97.35-1.786.244-1.968-.104-.182-.576-.286-.89-.442z"/></svg>
+                    </a>
+                </div>
             </div>
         </section>
     </main>
@@ -114,6 +206,28 @@
                 scrollTopBtn.style.display = 'none';
             }
         });
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const button = document.getElementById('theme-toggle');
+            button.textContent = document.body.classList.contains('dark-theme') ? 'Светлая тема' : 'Темная тема';
+        });
+
+        document.getElementById('menu-toggle').addEventListener('click', () => {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        function addToFavorites(recipe) {
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            if (!favorites.includes(recipe)) {
+                favorites.push(recipe);
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+                alert('Рецепт добавлен в избранное!');
+            } else {
+                alert('Рецепт уже в избранном!');
+            }
+        }
     </script>
 </body>
 </html>

@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Топ 5 рецептов: вкусные и простые блюда для каждого. Салат Цезарь, Спагетти Карбонара и многое другое!">
+    <meta name="keywords" content="рецепты, кулинария, салат цезарь, спагетти карбонара, пицца маргарита">
     <title>Топ 5 рецептов</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Lato', sans-serif;
-            background-color: #fefce8; /* Кремовый фон */
+            background-color: #fefce8;
         }
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
-            color: #4a2c2a; /* Темно-коричневый для заголовков */
+            color: #4a2c2a;
         }
         .recipe-card {
             position: relative;
@@ -71,18 +73,58 @@
         .scroll-top:hover {
             background-color: #ea580c;
         }
+        .dark-theme {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        .dark-theme h1, .dark-theme h2, .dark-theme h3 {
+            color: #f5f5f5;
+        }
+        .dark-theme .bg-white {
+            background-color: #3a3a3a;
+        }
+        .dark-theme .text-stone-700 {
+            color: #d1d5db;
+        }
+        .dark-theme .bg-orange-100 {
+            background-color: #4a2c2a;
+        }
+        @media (max-width: 640px) {
+            .recipe-image {
+                height: 150px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
 </head>
 <body>
     <header class="bg-orange-500 text-white p-6 sticky top-0 z-50 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-4xl font-bold">Топ 5 рецептов</h1>
-            <nav>
-                <ul class="flex space-x-6">
+            <button id="menu-toggle" class="sm:hidden text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+            <nav id="nav-menu" class="hidden sm:flex sm:space-x-6 items-center">
+                <ul class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                     <li><a href="#home" class="hover:underline text-lg">Главная</a></li>
                     <li><a href="#recipes" class="hover:underline text-lg">Рецепты</a></li>
                     <li><a href="#about" class="hover:underline text-lg">О нас</a></li>
+                    <li><a href="#contact" class="hover:underline text-lg">Контакты</a></li>
                 </ul>
+                <button id="theme-toggle" class="ml-4 bg-orange-600 text-white px-4 py-2 rounded-full">Темная тема</button>
             </nav>
         </div>
     </header>
@@ -95,10 +137,24 @@
             </p>
         </section>
 
+        <section id="seasonal" class="py-12">
+            <h2 class="text-4xl font-bold text-center mb-12">Рецепт месяца</h2>
+            <div class="bg-white rounded-xl shadow-md p-6 max-w-3xl mx-auto">
+                <h3 class="text-2xl font-semibold">Тыквенный суп</h3>
+                <p class="text-stone-600 mt-2">Идеальное блюдо для осени с нежным вкусом тыквы.</p>
+                <a href="#" class="mt-4 inline-block bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600">Посмотреть рецепт</a>
+            </div>
+        </section>
+
         <section id="recipes" class="py-12">
             <h2 class="text-4xl font-bold text-center mb-12">Наши лучшие рецепты</h2>
+            <div class="flex justify-center space-x-4 mb-8">
+                <button onclick="filterRecipes('all')" class="bg-orange-500 text-white px-4 py-2 rounded-full">Все</button>
+                <button onclick="filterRecipes('main')" class="bg-orange-500 text-white px-4 py-2 rounded-full">Основные блюда</button>
+                <button onclick="filterRecipes('dessert')" class="bg-orange-500 text-white px-4 py-2 rounded-full">Десерты</button>
+            </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="recipe-card bg-white rounded-xl shadow-md fade-in" style="animation-delay: 0.2s;">
+                <div class="recipe-card bg-white rounded-xl shadow-md fade-in" data-category="main" style="animation-delay: 0.2s;">
                     <div class="relative">
                         <img src="https://images.unsplash.com/photo-1550304943-4f24f54ddde9" alt="Салат Цезарь" class="recipe-image rounded-t-xl">
                         <div class="recipe-overlay">
@@ -107,10 +163,12 @@
                     </div>
                     <div class="p-6">
                         <p class="text-stone-600 mt-2">Классический салат с ромейном, крутонами и сливочной заправкой.</p>
+                        <p class="text-stone-600 mt-2">Время: 15 минут</p>
+                        <p class="text-stone-600 mt-1">Сложность: Легко</p>
                         <a href="caesar.html" class="mt-4 inline-block bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition transform hover:scale-105">Посмотреть рецепт</a>
                     </div>
                 </div>
-                <div class="recipe-card bg-white rounded-xl shadow-md fade-in" style="animation-delay: 0.4s;">
+                <div class="recipe-card bg-white rounded-xl shadow-md fade-in" data-category="main" style="animation-delay: 0.4s;">
                     <div class="relative">
                         <img src="https://images.unsplash.com/photo-1608897013039-887f21d8c804" alt="Спагетти Карбонара" class="recipe-image rounded-t-xl">
                         <div class="recipe-overlay">
@@ -119,10 +177,12 @@
                     </div>
                     <div class="p-6">
                         <p class="text-stone-600 mt-2">Нежная паста с яйцами, сыром и панчеттой.</p>
+                        <p class="text-stone-600 mt-2">Время: 30 минут</p>
+                        <p class="text-stone-600 mt-1">Сложность: Средне</p>
                         <a href="carbonara.html" class="mt-4 inline-block bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition transform hover:scale-105">Посмотреть рецепт</a>
                     </div>
                 </div>
-                <div class="recipe-card bg-white rounded-xl shadow-md fade-in" style="animation-delay: 0.6s;">
+                <div class="recipe-card bg-white rounded-xl shadow-md fade-in" data-category="main" style="animation-delay: 0.6s;">
                     <div class="relative">
                         <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398" alt="Курица Тикка Масала" class="recipe-image rounded-t-xl">
                         <div class="recipe-overlay">
@@ -131,10 +191,12 @@
                     </div>
                     <div class="p-6">
                         <p class="text-stone-600 mt-2">Пряное и сливочное индийское карри с курицей.</p>
+                        <p class="text-stone-600 mt-2">Время: 45 минут</p>
+                        <p class="text-stone-600 mt-1">Сложность: Средне</p>
                         <a href="tikka.html" class="mt-4 inline-block bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition transform hover:scale-105">Посмотреть рецепт</a>
                     </div>
                 </div>
-                <div class="recipe-card bg-white rounded-xl shadow-md fade-in" style="animation-delay: 0.8s;">
+                <div class="recipe-card bg-white rounded-xl shadow-md fade-in" data-category="main" style="animation-delay: 0.8s;">
                     <div class="relative">
                         <img src="https://images.unsplash.com/photo-1571066811602-716837d3302b" alt="Пицца Маргарита" class="recipe-image rounded-t-xl">
                         <div class="recipe-overlay">
@@ -143,10 +205,12 @@
                     </div>
                     <div class="p-6">
                         <p class="text-stone-600 mt-2">Простая пицца с помидорами, моцареллой и базиликом.</p>
+                        <p class="text-stone-600 mt-2">Время: 25 минут</p>
+                        <p class="text-stone-600 mt-1">Сложность: Легко</p>
                         <a href="margherita.html" class="mt-4 inline-block bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition transform hover:scale-105">Посмотреть рецепт</a>
                     </div>
                 </div>
-                <div class="recipe-card bg-white rounded-xl shadow-md fade-in" style="animation-delay: 1s;">
+                <div class="recipe-card bg-white rounded-xl shadow-md fade-in" data-category="dessert" style="animation-delay: 1s;">
                     <div class="relative">
                         <img src="https://images.unsplash.com/photo-1618886614638-80e3c103d31a" alt="Шоколадный лавовый пирог" class="recipe-image rounded-t-xl">
                         <div class="recipe-overlay">
@@ -155,6 +219,8 @@
                     </div>
                     <div class="p-6">
                         <p class="text-stone-600 mt-2">Теплый пирог с жидким шоколадным центром.</p>
+                        <p class="text-stone-600 mt-2">Время: 20 минут</p>
+                        <p class="text-stone-600 mt-1">Сложность: Средне</p>
                         <a href="lava-cake.html" class="mt-4 inline-block bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition transform hover:scale-105">Посмотреть рецепт</a>
                     </div>
                 </div>
@@ -166,6 +232,16 @@
             <p class="text-stone-700 max-w-2xl mx-auto text-lg">
                 Мы увлечены созданием и распространением вкусных рецептов, которые объединяют людей. Наши топ-5 рецептов созданы для вдохновения как новичков, так и опытных кулинаров.
             </p>
+        </section>
+
+        <section id="contact" class="py-12 text-center">
+            <h2 class="text-4xl font-bold mb-6">Подпишитесь на новые рецепты!</h2>
+            <div class="bg-orange-100 p-6 rounded-xl max-w-md mx-auto">
+                <form action="https://formspree.io/f/ВАШ-ID" method="POST" class="flex flex-col items-center">
+                    <input type="email" name="email" placeholder="Ваш email" class="w-full p-2 border rounded mb-4" required>
+                    <button type="submit" class="bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600">Подписаться</button>
+                </form>
+            </div>
         </section>
     </main>
 
@@ -201,6 +277,28 @@
                 scrollTopBtn.style.display = 'none';
             }
         });
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const button = document.getElementById('theme-toggle');
+            button.textContent = document.body.classList.contains('dark-theme') ? 'Светлая тема' : 'Темная тема';
+        });
+
+        document.getElementById('menu-toggle').addEventListener('click', () => {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        function filterRecipes(category) {
+            const cards = document.querySelectorAll('.recipe-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 </html>

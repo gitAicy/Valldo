@@ -1,11 +1,40 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row =>
+                    row.some(cell => cell !== '' && cell !== null && cell !== undefined)
+                );
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Рецепт пиццы Маргарита с помидорами, моцареллой и базиликом.">
-    <meta name="keywords" content="пицца маргарита, рецепт, кулинария, топ 5 рецептов">
-    <title>Пицца Маргарита - Топ 5 рецептов</title>
+    <meta name="description" content="Рецепт тыквенного супа — рецепт месяца на октябрь 2025 года.">
+    <meta name="keywords" content="тыквенный суп, рецепт месяца, кулинария, топ 5 рецептов">
+    <title>Тыквенный суп - Рецепт месяца - Топ 5 рецептов</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -86,31 +115,33 @@
     {
         "@context": "https://schema.org",
         "@type": "Recipe",
-        "name": "Пицца Маргарита",
-        "image": "https://images.unsplash.com/photo-1571066811602-716837d3302b",
-        "description": "Простая пицца с помидорами, моцареллой и базиликом.",
+        "name": "Тыквенный суп",
+        "image": "https://images.unsplash.com/photo-1621510426921-5d55d44c9211",
+        "description": "Теплый и уютный тыквенный суп — идеальное блюдо для осени.",
         "recipeIngredient": [
-            "Тесто для пиццы - 300 г",
-            "Помидоры - 200 г",
-            "Моцарелла - 150 г",
-            "Базилик - 10 листьев",
-            "Оливковое масло - 2 ст.л."
+            "Тыква - 500 г",
+            "Лук - 1 шт.",
+            "Сливки - 100 мл",
+            "Чеснок - 2 зубчика",
+            "Овощной бульон - 500 мл",
+            "Соль и перец - по вкусу"
         ],
         "recipeInstructions": [
-            {"@type": "HowToStep", "text": "Раскатайте тесто в круг."},
-            {"@type": "HowToStep", "text": "Намажьте томатным соусом."},
-            {"@type": "HowToStep", "text": "Добавьте моцареллу и базилик."},
-            {"@type": "HowToStep", "text": "Сбрызните маслом и выпекайте при 250°C 10-12 минут."}
+            {"@type": "HowToStep", "text": "Очистите и нарежьте тыкву кубиками."},
+            {"@type": "HowToStep", "text": "Обжарьте лук и чеснок до золотистого цвета."},
+            {"@type": "HowToStep", "text": "Добавьте тыкву и бульон, варите 20 минут."},
+            {"@type": "HowToStep", "text": "Измельчите суп блендером, добавьте сливки, соль и перец."},
+            {"@type": "HowToStep", "text": "Подавайте горячим с гренками."}
         ],
-        "prepTime": "PT25M",
-        "totalTime": "PT25M",
-        "recipeYield": "2 порции",
+        "prepTime": "PT35M",
+        "totalTime": "PT35M",
+        "recipeYield": "4 порции",
         "nutrition": {
             "@type": "NutritionInformation",
-            "calories": "450 kcal",
-            "proteinContent": "20 g",
-            "fatContent": "15 g",
-            "carbohydrateContent": "60 g"
+            "calories": "250 kcal",
+            "proteinContent": "5 g",
+            "fatContent": "10 g",
+            "carbohydrateContent": "35 g"
         }
     }
     </script>
@@ -136,46 +167,48 @@
 
     <main class="container mx-auto p-6">
         <section class="py-8">
-            <div class="hero-image" style="background-image: url('https://chudobludo.com/delicious-italian-pizza-wooden-table.jpg');">
-                <h2 class="text-5xl font-bold z-10">Пицца Маргарита</h2>
+            <div class="hero-image" style="background-image: url('https://images.unsplash.com/photo-1621510426921-5d55d44c9211');">
+                <h2 class="text-5xl font-bold z-10">Тыквенный суп</h2>
             </div>
             <div class="bg-white rounded-xl shadow-md p-8 max-w-3xl mx-auto mt-8">
                 <div class="flex justify-between mb-6">
-                    <p class="text-stone-700 text-lg"><strong>Время:</strong> 25 минут</p>
+                    <p class="text-stone-700 text-lg"><strong>Время:</strong> 35 минут</p>
                     <p class="text-stone-700 text-lg"><strong>Сложность:</strong> Легко</p>
                 </div>
                 <h3 class="text-3xl font-semibold mt-4">Ингредиенты:</h3>
                 <ul class="list-disc pl-6 mt-4 text-stone-700 text-lg">
-                    <li>Тесто для пиццы - 300 г</li>
-                    <li>Помидоры - 200 г</li>
-                    <li>Моцарелла - 150 г</li>
-                    <li>Базилик - 10 листьев</li>
-                    <li>Оливковое масло - 2 ст.л.</li>
+                    <li>Тыква - 500 г</li>
+                    <li>Лук - 1 шт.</li>
+                    <li>Сливки - 100 мл</li>
+                    <li>Чеснок - 2 зубчика</li>
+                    <li>Овощной бульон - 500 мл</li>
+                    <li>Соль и перец - по вкусу</li>
                 </ul>
                 <h3 class="text-3xl font-semibold mt-8">Шаги приготовления:</h3>
                 <ol class="list-decimal pl-6 mt-4 text-stone-700 text-lg">
-                    <li>Раскатайте тесто в круг.</li>
-                    <li>Намажьте томатным соусом.</li>
-                    <li>Добавьте моцареллу и базилик.</li>
-                    <li>Сбрызните маслом и выпекайте при 250°C 10-12 минут.</li>
+                    <li>Очистите и нарежьте тыкву кубиками.</li>
+                    <li>Обжарьте лук и чеснок до золотистого цвета.</li>
+                    <li>Добавьте тыкву и бульон, варите 20 минут.</li>
+                    <li>Измельчите суп блендером, добавьте сливки, соль и перец.</li>
+                    <li>Подавайте горячим с гренками.</li>
                 </ol>
                 <h3 class="text-3xl font-semibold mt-8">Питательная ценность (на порцию):</h3>
                 <ul class="list-disc pl-6 mt-4 text-stone-700 text-lg">
-                    <li>Калории: 450 ккал</li>
-                    <li>Белки: 20 г</li>
-                    <li>Жиры: 15 г</li>
-                    <li>Углеводы: 60 г</li>
+                    <li>Калории: 250 ккал</li>
+                    <li>Белки: 5 г</li>
+                    <li>Жиры: 10 г</li>
+                    <li>Углеводы: 35 г</li>
                 </ul>
                 <div class="mt-6 flex space-x-4">
                     <a href="index.html#recipes" class="inline-block bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600 transition transform hover:scale-105">Вернуться к рецептам</a>
-                    <button onclick="addToFavorites('margherita')" class="inline-block bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600 transition transform hover:scale-105">Добавить в избранное</button>
+                    <button onclick="addToFavorites('recipe-of-the-month')" class="inline-block bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600 transition transform hover:scale-105">Добавить в избранное</button>
                 </div>
                 <h3 class="text-3xl font-semibold mt-8">Поделиться рецептом</h3>
                 <div class="flex space-x-4 mt-4">
-                    <a href="https://pinterest.com/pin/create/button/?url=https://gitAicy.github.io/margherita.html&media=https://images.unsplash.com/photo-1571066811602-716837d3302b&description=Вкусная пицца Маргарита!" class="text-orange-500 hover:text-orange-600">
+                    <a href="https://pinterest.com/pin/create/button/?url=https://ВАШ-USERNAME.github.io/recipe-of-the-month.html&media=https://images.unsplash.com/photo-1621510426921-5d55d44c9211&description=Вкусный тыквенный суп — Рецепт месяца!" class="text-orange-500 hover:text-orange-600">
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.332 3.438 9.862 8.208 11.473-.113-.998-.208-2.527.043-3.616.227-.982 1.465-6.242 1.465-6.242s-.374-.75-.374-1.857c0-1.738 1.008-3.035 2.262-3.035 1.066 0 1.582.806 1.582 1.773 0 1.08-.687 2.695-.104 4.19.486 1.258 1.494 1.445 1.77 1.445 1.316 0 2.33-1.387 2.33-3.387 0-1.77-1.27-3.008-3.085-3.008-2.103 0-3.338 1.576-3.338 3.203 0 1.276.496 2.645.496 2.645s-1.645 6.963-1.938 8.275c-.316 1.418.14 3.157.104 3.332l.042.015c.208-.082.428-.22.61-.354.142-.105 1.82-1.204 2.34-2.33.142-.31.81-1.896.81-1.896.428.81 1.676 1.51 3.008 1.51 3.966 0 6.834-3.615 6.834-8.417C24 5.373 18.627 0 12 0z"/></svg>
                     </a>
-                    <a href="https://api.whatsapp.com/send?text=Попробуй этот рецепт: https://gitAicy.github.io/margherita.html" class="text-orange-500 hover:text-orange-600">
+                    <a href="https://api.whatsapp.com/send?text=Попробуй этот рецепт: https://ВАШ-USERNAME.github.io/recipe-of-the-month.html" class="text-orange-500 hover:text-orange-600">
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 2.134.56 4.24 1.62 6.07L0 24l6.06-1.59A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22.068A10.065 10.065 0 016.92 20.52l-.354-.142-3.59.942.948-3.54-.142-.36A10.065 10.065 0 012 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.728-7.208c-.314-.156-1.854-.914-2.142-1.02-.288-.106-.498-.156-.708.156-.21.312-.814 1.02-.998 1.228-.184.208-.368.234-.682.078-.314-.156-1.324-.486-2.52-1.552-.93-.828-1.558-1.854-1.742-2.166-.184-.312-.02-.478.138-.634.142-.14.314-.36.47-.54.156-.18.208-.312.314-.52.106-.208.052-.416-.026-.572-.078-.156-.708-1.708-.968-2.338-.252-.61-.504-.52-.708-.52H7.5c-.262 0-.524.104-.708.416-.184.312-.708 1.708-.708 4.166 0 2.458 1.786 4.834 2.038 5.146.252.312 3.524 5.376 8.542 7.542 1.192.514 2.126.778 2.852.778.784 0 2.458-.998 2.808-1.968.35-.97.35-1.786.244-1.968-.104-.182-.576-.286-.89-.442z"/></svg>
                     </a>
                 </div>

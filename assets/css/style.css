@@ -363,6 +363,44 @@ h3 {
     color: #9ca3af;
 }
 
+/* ===== RECIPE PAGE HERO IMAGE ===== */
+.hero-image {
+    position: relative;
+    width: 100%;
+    height: 360px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+}
+
+/* Тёмный градиент снизу — контраст для текста */
+.hero-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.05) 0%,
+            rgba(0, 0, 0, 0.35) 50%,
+            rgba(0, 0, 0, 0.72) 100%);
+    border-radius: inherit;
+}
+
+/* Заголовок поверх overlay */
+.hero-image h2 {
+    position: relative;
+    z-index: 10;
+    color: #fff !important;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.8), 0 1px 4px rgba(0, 0, 0, 0.95);
+    padding: 1.5rem 2rem;
+    width: 100%;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    line-height: 1.2;
+    margin: 0;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 640px) {
     .recipe-image {

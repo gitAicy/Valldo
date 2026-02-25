@@ -29,7 +29,24 @@ document.addEventListener('DOMContentLoaded', () => {
             : '<span aria-hidden="true">🌙</span> Темная тема';
     }
 
-    // ─── 2. MOBILE MENU ───────────────────────────────────────────────────────
+    // ─── 2. DYNAMIC RECIPE-OF-MONTH DATE ────────────────────────────────────
+    (function updateRecipeMonthBadge() {
+        const MONTHS_RU = [
+            'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+            'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+        ];
+        const now = new Date();
+        const label = `${MONTHS_RU[now.getMonth()]} ${now.getFullYear()}`;
+
+        const badge = document.getElementById('recipe-month-badge');
+        if (badge) badge.textContent = `⭐ ${label}`;
+
+        const hero = document.getElementById('recipe-month-hero');
+        if (hero) hero.textContent = `Рецепт месяца · ${label}`;
+    })();
+
+    // ─── 3. MOBILE MENU ───────────────────────────────────────────────────────
+
     const menuToggle = document.getElementById('menu-toggle');
     const navMenu = document.getElementById('nav-menu');
 

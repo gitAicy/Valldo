@@ -33,7 +33,8 @@
                     <li><a href="index.html#home" class="hover:underline text-lg">Главная</a></li>
                     <li><a href="index.html#recipes" class="hover:underline text-lg">Рецепты</a></li>
                     <li><a href="favorites.html"
-                            class="hover:underline text-lg font-bold border-b-2 border-white">Избранное</a></li>
+                            class="nav-fav-link hover:underline text-lg font-bold border-b-2 border-white">Избранное</a>
+                    </li>
                     <li><a href="index.html#about" class="hover:underline text-lg">О нас</a></li>
                     <li><a href="index.html#contact" class="hover:underline text-lg">Контакты</a></li>
                 </ul>
@@ -47,11 +48,13 @@
         <section class="py-8">
             <h2 class="text-4xl font-bold text-center mb-8">Избранные рецепты</h2>
 
-            <p id="no-favorites-msg" class="text-center text-stone-600 text-lg mt-16" style="display:none;">
-                У вас пока нет избранных рецептов.<br>
-                <a href="index.html#recipes" class="text-orange-500 hover:underline font-semibold">Перейти к рецептам
-                    →</a>
-            </p>
+            <div id="empty-state" class="empty-state" style="display:none;">
+                <div class="empty-state-icon">❤️</div>
+                <h2 class="empty-state-title">Ваше избранное пусто</h2>
+                <p class="empty-state-sub">Добавляйте понравившиеся рецепты, нажимая «❤️ Добавить в избранное» на
+                    странице любого рецепта.</p>
+                <a href="index.html#recipes" class="main-hero-cta">Перейти к рецептам →</a>
+            </div>
 
             <div id="favorites-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4"
                 style="display:none;">
